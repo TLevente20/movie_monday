@@ -11,15 +11,24 @@ class Movie{
             $DBCon = DBConfig::getConnection();
             $resultObj = $DBCon->query('SELECT * FROM `movies`;');
             $result = $resultObj->fetch_all(MYSQLI_ASSOC);
+            $success = true;
         }
-        catch(Exception $e){
-            http_response_code(500);
-            echo $e->getMessage();
-            $result = false;
+
+        catch(Exception $error){
+            $result = $error->getMessage();
+            $success = false;
         }
+
         finally{
             $DBCon->close();
-            return $result;
+
+            return [
+                'result' => $result,
+                'success' => $success
+            ];
         }
     }
 }
+
+//Test database querry
+// var_dump(Movie::getAllMovie());
