@@ -22,10 +22,15 @@ class MovieService{
             $minutes = $movie['duration'] % 60;
 
             $formatedDuration = "$hours:$minutes";
-            
+
             $movie['duration'] = $formatedDuration;
             $moviesWithFormatedDuration[] = $movie;
         }
-        
+
+        return [
+            'success' => true,
+            'statusCode' => 200,
+            'result' => $moviesWithFormatedDuration
+        ];
     }
 }
